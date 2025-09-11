@@ -6,6 +6,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AppProvider, useApp } from "@/contexts/AppContext";
+import { AuthProvider } from "@/contexts/AuthContext";
 import BottomNav from "@/components/layout/BottomNav";
 import Index from "./pages/Index";
 import ProductDetailPage from "./pages/ProductDetailPage";
@@ -13,6 +14,7 @@ import CategoryPage from "./pages/CategoryPage";
 import CartPage from "./pages/CartPage";
 import WishlistPage from "./pages/WishlistPage";
 import CheckoutPage from "./pages/CheckoutPage";
+import AuthPage from "./pages/AuthPage";
 import AccountPage from "@/pages/AccountPage";
 import NotFound from "./pages/NotFound";
 import { useToast } from "@/hooks/use-toast";
@@ -68,6 +70,7 @@ function AppWithNavigation() {
             <Route path="/cart" element={<CartPage />} />
             <Route path="/wishlist" element={<WishlistPage />} />
             <Route path="/checkout" element={<CheckoutPage />} />
+            <Route path="/auth" element={<AuthPage />} />
             <Route path="/account" element={<AccountPage />} />
             <Route path="*" element={<NotFound />} />
       </Routes>
@@ -88,13 +91,15 @@ const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
       <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-        <AppProvider>
-          <Toaster />
-          <Sonner />
-          <BrowserRouter>
-            <AppWithNavigation />
-          </BrowserRouter>
-        </AppProvider>
+        <AuthProvider>
+          <AppProvider>
+            <Toaster />
+            <Sonner />
+            <BrowserRouter>
+              <AppWithNavigation />
+            </BrowserRouter>
+          </AppProvider>
+        </AuthProvider>
       </ThemeProvider>
     </TooltipProvider>
   </QueryClientProvider>
