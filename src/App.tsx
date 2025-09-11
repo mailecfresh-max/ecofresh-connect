@@ -13,6 +13,7 @@ import CategoryPage from "./pages/CategoryPage";
 import CartPage from "./pages/CartPage";
 import WishlistPage from "./pages/WishlistPage";
 import CheckoutPage from "./pages/CheckoutPage";
+import AccountPage from "./pages/AccountPage";
 import NotFound from "./pages/NotFound";
 import { useToast } from "@/hooks/use-toast";
 
@@ -52,10 +53,7 @@ function AppWithNavigation() {
         navigate("/category/fresh-vegetables");
         break;
       case "account":
-        toast({
-          title: "Account",
-          description: "Account page coming soon!",
-        });
+        navigate("/account");
         break;
     }
   };
@@ -66,10 +64,11 @@ function AppWithNavigation() {
         <Route path="/" element={<Index />} />
         <Route path="/product/:id" element={<ProductDetailPage />} />
         <Route path="/category/:categoryId" element={<CategoryPage />} />
-        <Route path="/cart" element={<CartPage />} />
-        <Route path="/wishlist" element={<WishlistPage />} />
-        <Route path="/checkout" element={<CheckoutPage />} />
-        <Route path="*" element={<NotFound />} />
+            <Route path="/cart" element={<CartPage />} />
+            <Route path="/wishlist" element={<WishlistPage />} />
+            <Route path="/checkout" element={<CheckoutPage />} />
+            <Route path="/account" element={<AccountPage />} />
+            <Route path="*" element={<NotFound />} />
       </Routes>
 
       {/* Universal Bottom Navigation - Hide on checkout */}
