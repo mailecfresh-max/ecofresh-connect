@@ -143,12 +143,12 @@
   
   .hero-banner {
     @apply relative rounded-card overflow-hidden shadow-hero;
-    aspect-ratio: 16/4;
+    aspect-ratio: 16/6;
   }
   
   @media (max-width: 768px) {
     .hero-banner {
-      aspect-ratio: 16/4;
+      aspect-ratio: 16/8;
     }
   }
 }
