@@ -13,7 +13,7 @@ import CategoryPage from "./pages/CategoryPage";
 import CartPage from "./pages/CartPage";
 import WishlistPage from "./pages/WishlistPage";
 import CheckoutPage from "./pages/CheckoutPage";
-import AccountPage from "./pages/AccountPage";
+import AccountPage from "@/pages/AccountPage";
 import NotFound from "./pages/NotFound";
 import { useToast } from "@/hooks/use-toast";
 
