@@ -68,14 +68,14 @@
   }
 
   .dark {
-    --background: 0 0% 5%;
-    --foreground: 0 0% 95%;
-    --card: 0 0% 8%;
-    --card-foreground: 0 0% 95%;
-    --border: 0 0% 15%;
-    --input: 0 0% 12%;
-    --muted: 0 0% 12%;
-    --muted-foreground: 0 0% 60%;
+    --background: 0 0% 100%;
+    --foreground: 0 0% 15%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 15%;
+    --border: 0 0% 90%;
+    --input: 0 0% 95%;
+    --muted: 0 0% 96%;
+    --muted-foreground: 0 0% 45%;
   }
 }
 
