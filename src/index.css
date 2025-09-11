@@ -148,7 +148,7 @@
   
   @media (max-width: 768px) {
     .hero-banner {
-      aspect-ratio: 16/6;
+      aspect-ratio: 16/4;
     }
   }
 }
