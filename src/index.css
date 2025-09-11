@@ -122,7 +122,7 @@
   }
   
   .container-fresh {
-    @apply max-w-7xl mx-auto px-container-padding;
+    @apply max-w-7xl mx-auto px-container;
   }
   
   .grid-categories {
