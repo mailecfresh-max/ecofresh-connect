@@ -204,7 +204,7 @@ export default function CartPage() {
       </div>
 
       {/* Sticky Checkout Button */}
-      <div className="fixed bottom-0 left-0 right-0 bg-background border-t p-4 z-40">
+      <div className="fixed left-0 right-0 bg-background border-t p-4 z-50 bottom-[var(--footer-height)]">
         <div className="container-fresh">
           <Button
             onClick={handleCheckout}
