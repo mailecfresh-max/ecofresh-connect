@@ -1,24 +1,4 @@
-interface Category {
-  id: string;
-  name: string;
-  icon: string;
-  image: string;
-  count: number;
-}
-
-const CATEGORIES: Category[] = [
-  { id: "curry-cuts", name: "Curry Cuts", icon: "🍛", image: "/api/placeholder/120/120", count: 24 },
-  { id: "cut-fruits", name: "Cut Fruits", icon: "🍎", image: "/api/placeholder/120/120", count: 18 },
-  { id: "fresh-vegetables", name: "Fresh Vegetables", icon: "🥬", image: "/api/placeholder/120/120", count: 45 },
-  { id: "juice-cuts", name: "Juice Cuts", icon: "🧃", image: "/api/placeholder/120/120", count: 12 },
-  { id: "mezhukkupuratti", name: "Mezhukkupuratti Cut", icon: "🥒", image: "/api/placeholder/120/120", count: 15 },
-  { id: "peeled-items", name: "Peeled Items", icon: "🥔", image: "/api/placeholder/120/120", count: 20 },
-  { id: "salads", name: "Salads", icon: "🥗", image: "/api/placeholder/120/120", count: 16 },
-  { id: "fresh-fruits", name: "Fresh Fruits", icon: "🍊", image: "/api/placeholder/120/120", count: 28 },
-  { id: "grated-items", name: "Grated Items", icon: "🧀", image: "/api/placeholder/120/120", count: 8 },
-  { id: "grocery", name: "Grocery", icon: "🛒", image: "/api/placeholder/120/120", count: 52 },
-  { id: "thoran-cut", name: "Thoran Cut", icon: "🌿", image: "/api/placeholder/120/120", count: 14 },
-];
+import { CATEGORIES } from "@/contexts/AppContext";
 
 interface CategoryGridProps {
   onCategoryClick: (categoryId: string) => void;
