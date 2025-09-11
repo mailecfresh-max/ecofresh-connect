@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Header from "@/components/layout/Header";
-import BottomNav from "@/components/layout/BottomNav";
 import PinPopup from "@/components/layout/PinPopup";
 import HeroBanner from "@/components/home/HeroBanner";
 import LoyaltyProgress from "@/components/home/LoyaltyProgress";
@@ -14,8 +13,6 @@ const Index = () => {
   const navigate = useNavigate();
   const [selectedPin, setSelectedPin] = useState("");
   const [showPinPopup, setShowPinPopup] = useState(false);
-  const [activeTab, setActiveTab] = useState("home");
-  const { cartCount } = useApp();
   const { toast } = useToast();
 
   useEffect(() => {
@@ -48,32 +45,6 @@ const Index = () => {
     navigate(`/product/${productId}`);
   };
 
-  const handleTabChange = (tab: string) => {
-    setActiveTab(tab);
-    
-    switch (tab) {
-      case "home":
-        navigate("/");
-        break;
-      case "cart":
-        navigate("/cart");
-        break;
-      case "wishlist":
-        navigate("/wishlist");
-        break;
-      case "shop":
-        // Navigate to first category for now
-        navigate("/category/fresh-vegetables");
-        break;
-      case "account":
-        toast({
-          title: "Account",
-          description: "Account page coming soon!",
-        });
-        break;
-    }
-  };
-
   if (showPinPopup) {
     return <PinPopup isOpen={showPinPopup} onPinConfirm={handlePinConfirm} />;
   }
@@ -99,12 +70,6 @@ const Index = () => {
           onAddToCart={() => {}}
         />
       </main>
-
-      <BottomNav 
-        activeTab={activeTab} 
-        onTabChange={handleTabChange}
-        cartCount={cartCount}
-      />
     </div>
   );
 };

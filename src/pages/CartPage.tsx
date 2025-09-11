@@ -74,7 +74,7 @@ export default function CartPage() {
   }
 
   return (
-    <div className="min-h-screen bg-background pb-32">
+    <div className="min-h-screen bg-background pb-footer">{/* Added pb-footer for universal bottom nav */}
       {/* Header */}
       <header className="sticky-header h-header">
         <div className="container-fresh h-full flex items-center justify-between">
