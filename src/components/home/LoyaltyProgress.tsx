@@ -20,35 +20,9 @@ export default function LoyaltyProgress({ earnedCredits = 450, targetAmount = 30
             ecfresh Credits
           </h3>
           <p className="text-muted-foreground text-sm">
-            You've earned ₹{earnedCredits} in credits
+            ₹{earnedCredits} / ₹300
           </p>
         </div>
-      </div>
-
-      {/* Progress Bar */}
-      <div className="mb-4">
-        <div className="bg-muted rounded-full h-3 overflow-hidden">
-          <div 
-            className="progress-fresh h-full transition-all duration-500"
-            style={{ width: `${progress}%` }}
-          />
-        </div>
-      </div>
-
-      {/* Progress Text */}
-      <div className="flex items-center justify-between text-sm">
-        <div className="flex items-center gap-1">
-          <Star className="w-4 h-4 text-brand-orange fill-current" />
-          <span className="font-medium">
-            {remainingToUnlock > 0 
-              ? `₹${remainingToUnlock} to unlock ₹300 off` 
-              : "₹300 unlocked! 🎉"
-            }
-          </span>
-        </div>
-        <span className="text-muted-foreground">
-          ₹{earnedCredits} / ₹{targetAmount}
-        </span>
       </div>
     </div>
   );
