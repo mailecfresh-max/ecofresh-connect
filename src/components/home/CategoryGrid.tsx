@@ -24,9 +24,6 @@ export default function CategoryGrid({ onCategoryClick }: CategoryGridProps) {
               <div className="w-full aspect-square rounded-lg bg-gradient-to-br from-primary/10 to-primary-light/10 flex items-center justify-center border border-primary/20 group-hover:border-primary/40 transition-colors">
                 <span className="text-2xl">{category.icon}</span>
               </div>
-              <div className="absolute -top-1 -right-1 bg-brand-orange text-white text-xs px-2 py-1 rounded-full font-medium">
-                {category.count}
-              </div>
             </div>
             
             {/* Category Name */}
