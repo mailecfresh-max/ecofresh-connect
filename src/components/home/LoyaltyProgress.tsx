@@ -24,6 +24,16 @@ export default function LoyaltyProgress({ earnedCredits = 450, targetAmount = 30
           </p>
         </div>
       </div>
+
+      {/* Progress Bar */}
+      <div className="mb-4">
+        <div className="bg-muted rounded-full h-3 overflow-hidden">
+          <div 
+            className="progress-fresh h-full transition-all duration-500"
+            style={{ width: `${progress}%` }}
+          />
+        </div>
+      </div>
     </div>
   );
 }
