@@ -16,6 +16,7 @@ import CheckoutPage from "./pages/CheckoutPage";
 import AccountPage from "@/pages/AccountPage";
 import NotFound from "./pages/NotFound";
 import { useToast } from "@/hooks/use-toast";
+import { ThemeProvider } from "next-themes";
 
 const queryClient = new QueryClient();
 
@@ -86,13 +87,15 @@ function AppWithNavigation() {
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
-      <AppProvider>
-        <Toaster />
-        <Sonner />
-        <BrowserRouter>
-          <AppWithNavigation />
-        </BrowserRouter>
-      </AppProvider>
+      <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+        <AppProvider>
+          <Toaster />
+          <Sonner />
+          <BrowserRouter>
+            <AppWithNavigation />
+          </BrowserRouter>
+        </AppProvider>
+      </ThemeProvider>
     </TooltipProvider>
   </QueryClientProvider>
 );
