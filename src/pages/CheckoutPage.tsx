@@ -26,6 +26,8 @@ export default function CheckoutPage() {
     additionalPhone: "",
   });
 
+  const [password, setPassword] = useState("");
+
   const [deliveryDate, setDeliveryDate] = useState("");
   const [timeSlot, setTimeSlot] = useState("");
   const [paymentMethod, setPaymentMethod] = useState("cod");
@@ -93,22 +95,19 @@ export default function CheckoutPage() {
   }, [user]);
 
   const createUserAccount = async () => {
-    if (!customerDetails.email || !customerDetails.name) {
+    if (!customerDetails.email || !customerDetails.name || !password) {
       return null;
     }
 
     try {
-      // Generate a simple password for account creation
-      const tempPassword = `temp${Date.now()}`;
-      
-      const { error } = await signUp(customerDetails.email, tempPassword, customerDetails.name);
+      const { error } = await signUp(customerDetails.email, password, customerDetails.name);
       
       if (error) {
         console.error('Account creation error:', error);
         return null;
       }
 
-      return tempPassword;
+      return password;
     } catch (error) {
       console.error('Account creation failed:', error);
       return null;
@@ -199,6 +198,15 @@ export default function CheckoutPage() {
       toast({
         title: "Missing details", 
         description: "Please fill in all required fields including email address",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    if (createAccount && !password) {
+      toast({
+        title: "Password required",
+        description: "Please set a password for your account",
         variant: "destructive",
       });
       return;
@@ -424,17 +432,34 @@ export default function CheckoutPage() {
             </div>
 
             {!user && (
-              <div className="flex items-center space-x-2 pt-4 border-t">
-                <input
-                  type="checkbox"
-                  id="createAccount"
-                  checked={createAccount}
-                  onChange={(e) => setCreateAccount(e.target.checked)}
-                  className="rounded"
-                />
-                <Label htmlFor="createAccount" className="text-sm">
-                  ✓ Create your account too so you don't have to enter your details next time
-                </Label>
+              <div className="space-y-4 pt-4 border-t">
+                <div className="flex items-center space-x-2">
+                  <input
+                    type="checkbox"
+                    id="createAccount"
+                    checked={createAccount}
+                    onChange={(e) => setCreateAccount(e.target.checked)}
+                    className="rounded"
+                  />
+                  <Label htmlFor="createAccount" className="text-sm">
+                    ✓ Create your account too so you don't have to enter your details next time
+                  </Label>
+                </div>
+                
+                {createAccount && (
+                  <div>
+                    <Label htmlFor="password">Set Password *</Label>
+                    <Input
+                      id="password"
+                      type="password"
+                      placeholder="Create a password for your account"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      className="h-10 rounded-button"
+                      required
+                    />
+                  </div>
+                )}
               </div>
             )}
 
