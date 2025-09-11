@@ -19,10 +19,14 @@ export default function CategoryGrid({ onCategoryClick }: CategoryGridProps) {
             onClick={() => onCategoryClick(category.id)}
             className="card-fresh p-4 hover:shadow-lg transition-all duration-200 hover:scale-105 group"
           >
-            {/* Category Icon/Image */}
+            {/* Category Image */}
             <div className="relative mb-3">
-              <div className="w-full aspect-square rounded-lg bg-gradient-to-br from-primary/10 to-primary-light/10 flex items-center justify-center border border-primary/20 group-hover:border-primary/40 transition-colors">
-                <span className="text-2xl">{category.icon}</span>
+              <div className="w-full aspect-square rounded-lg overflow-hidden border border-primary/20 group-hover:border-primary/40 transition-colors">
+                <img 
+                  src={category.image} 
+                  alt={category.name}
+                  className="w-full h-full object-cover"
+                />
               </div>
             </div>
             

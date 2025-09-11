@@ -295,15 +295,15 @@ export const PRODUCTS: Product[] = [
 ];
 
 export const CATEGORIES = [
-  { id: "curry-cuts", name: "Curry Cuts", icon: "🍛", count: 24 },
-  { id: "cut-fruits", name: "Cut Fruits", icon: "🍎", count: 18 },
-  { id: "fresh-vegetables", name: "Fresh Vegetables", icon: "🥬", count: 45 },
-  { id: "juice-cuts", name: "Juice Cuts", icon: "🧃", count: 12 },
-  { id: "mezhukkupuratti", name: "Mezhukkupuratti Cut", icon: "🥒", count: 15 },
-  { id: "peeled-items", name: "Peeled Items", icon: "🥔", count: 20 },
-  { id: "salads", name: "Salads", icon: "🥗", count: 16 },
-  { id: "fresh-fruits", name: "Fresh Fruits", icon: "🍊", count: 28 },
-  { id: "grated-items", name: "Grated Items", icon: "🧀", count: 8 },
-  { id: "grocery", name: "Grocery", icon: "🛒", count: 52 },
-  { id: "thoran-cut", name: "Thoran Cut", icon: "🌿", count: 14 },
+  { id: "curry-cuts", name: "Curry Cuts", icon: "🍛", image: "/api/placeholder/120/120", count: 24 },
+  { id: "cut-fruits", name: "Cut Fruits", icon: "🍎", image: "/api/placeholder/120/120", count: 18 },
+  { id: "fresh-vegetables", name: "Fresh Vegetables", icon: "🥬", image: "/api/placeholder/120/120", count: 45 },
+  { id: "juice-cuts", name: "Juice Cuts", icon: "🧃", image: "/api/placeholder/120/120", count: 12 },
+  { id: "mezhukkupuratti", name: "Mezhukkupuratti Cut", icon: "🥒", image: "/api/placeholder/120/120", count: 15 },
+  { id: "peeled-items", name: "Peeled Items", icon: "🥔", image: "/api/placeholder/120/120", count: 20 },
+  { id: "salads", name: "Salads", icon: "🥗", image: "/api/placeholder/120/120", count: 16 },
+  { id: "fresh-fruits", name: "Fresh Fruits", icon: "🍊", image: "/api/placeholder/120/120", count: 28 },
+  { id: "grated-items", name: "Grated Items", icon: "🧀", image: "/api/placeholder/120/120", count: 8 },
+  { id: "grocery", name: "Grocery", icon: "🛒", image: "/api/placeholder/120/120", count: 52 },
+  { id: "thoran-cut", name: "Thoran Cut", icon: "🌿", image: "/api/placeholder/120/120", count: 14 },
 ];
