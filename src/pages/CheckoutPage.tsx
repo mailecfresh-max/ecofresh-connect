@@ -195,10 +195,10 @@ export default function CheckoutPage() {
 
   const handlePlaceOrder = async () => {
     // Validate required fields
-    if (!customerDetails.name || !customerDetails.phone || !customerDetails.address || !customerDetails.landmark) {
+    if (!customerDetails.name || !customerDetails.phone || !customerDetails.email || !customerDetails.address || !customerDetails.landmark) {
       toast({
-        title: "Missing details",
-        description: "Please fill in all required fields",
+        title: "Missing details", 
+        description: "Please fill in all required fields including email address",
         variant: "destructive",
       });
       return;
@@ -213,14 +213,6 @@ export default function CheckoutPage() {
       return;
     }
 
-    if (createAccount && !customerDetails.email) {
-      toast({
-        title: "Email required",
-        description: "Please provide an email address to create an account",
-        variant: "destructive",
-      });
-      return;
-    }
 
     setIsProcessing(true);
 
@@ -385,7 +377,7 @@ export default function CheckoutPage() {
             </div>
             
             <div>
-              <Label htmlFor="email">Email {!user && createAccount ? "*" : "(Optional)"}</Label>
+              <Label htmlFor="email">Email Address *</Label>
               <Input
                 id="email"
                 type="email"
@@ -393,6 +385,7 @@ export default function CheckoutPage() {
                 value={customerDetails.email}
                 onChange={(e) => handleInputChange("email", e.target.value)}
                 className="h-10 rounded-button"
+                required
               />
             </div>
             
@@ -440,7 +433,7 @@ export default function CheckoutPage() {
                   className="rounded"
                 />
                 <Label htmlFor="createAccount" className="text-sm">
-                  Create an account to track orders and save details for faster checkout
+                  ✓ Create your account too so you don't have to enter your details next time
                 </Label>
               </div>
             )}
