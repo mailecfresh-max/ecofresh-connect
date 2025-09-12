@@ -26,12 +26,9 @@ export default function CheckoutPage() {
     additionalPhone: "",
   });
 
-  const [password, setPassword] = useState("");
-
   const [deliveryDate, setDeliveryDate] = useState("");
   const [timeSlot, setTimeSlot] = useState("");
   const [paymentMethod, setPaymentMethod] = useState("cod");
-  const [createAccount, setCreateAccount] = useState(!user);
   const [isProcessing, setIsProcessing] = useState(false);
 
   const savedPin = localStorage.getItem("ecfresh-pin") || "";
@@ -94,22 +91,38 @@ export default function CheckoutPage() {
     }
   }, [user]);
 
-  const createUserAccount = async () => {
-    if (!customerDetails.email || !customerDetails.name || !password) {
+  const createUserAccountAndSignIn = async () => {
+    if (!customerDetails.email || !customerDetails.name) {
       return null;
     }
 
     try {
-      const { error } = await signUp(customerDetails.email, password, customerDetails.name);
+      // Generate a random password for the user
+      const randomPassword = Math.random().toString(36).slice(-8) + Math.random().toString(36).slice(-8);
       
-      if (error) {
-        console.error('Account creation error:', error);
+      // Create the account
+      const { error: signUpError } = await signUp(customerDetails.email, randomPassword, customerDetails.name);
+      
+      if (signUpError) {
+        console.error('Account creation error:', signUpError);
         return null;
       }
 
-      return password;
+      // Wait a moment for the account to be created
+      await new Promise(resolve => setTimeout(resolve, 1000));
+
+      // Sign in the user immediately
+      const { error: signInError } = await signIn(customerDetails.email, randomPassword);
+      
+      if (signInError) {
+        console.error('Auto sign-in error:', signInError);
+        // Even if sign-in fails, we can still process the order
+        return randomPassword;
+      }
+
+      return randomPassword;
     } catch (error) {
-      console.error('Account creation failed:', error);
+      console.error('Account creation and sign-in failed:', error);
       return null;
     }
   };
@@ -192,6 +205,22 @@ export default function CheckoutPage() {
     }
   };
 
+  const processGuestOrder = async () => {
+    // For guest orders, we'll create a temporary order ID and show success
+    // In a real implementation, you might want to save this to a separate guest orders table
+    const orderId = `EC${Date.now().toString().slice(-6)}`;
+    
+    clearCart();
+    
+    toast({
+      title: "Order placed successfully! 🎉",
+      description: `Order #${orderId} will be delivered on ${deliveryOptions.find(d => d.value === deliveryDate)?.label}`,
+    });
+
+    setTimeout(() => {
+      navigate("/");
+    }, 2000);
+  };
   const handlePlaceOrder = async () => {
     // Validate required fields
     if (!customerDetails.name || !customerDetails.phone || !customerDetails.email || !customerDetails.address || !customerDetails.landmark) {
@@ -203,14 +232,6 @@ export default function CheckoutPage() {
       return;
     }
 
-    if (createAccount && !password) {
-      toast({
-        title: "Password required",
-        description: "Please set a password for your account",
-        variant: "destructive",
-      });
-      return;
-    }
 
     if (!deliveryDate || !timeSlot) {
       toast({
@@ -226,23 +247,27 @@ export default function CheckoutPage() {
 
     try {
       let currentUserId = user?.id;
-      let tempPassword = null;
 
-      // Create account if requested and user is not logged in
-      if (createAccount && !user && customerDetails.email) {
-        tempPassword = await createUserAccount();
-        if (!tempPassword) {
+      // If user is not logged in, automatically create account and sign them in
+      if (!user && customerDetails.email) {
+        const password = await createUserAccountAndSignIn();
+        if (password) {
+          toast({
+            title: "Account created and signed in! 🎉",
+            description: "Your account has been created automatically. You're now signed in!",
+          });
+          
+          // Wait a moment for the auth state to update
+          await new Promise(resolve => setTimeout(resolve, 2000));
+          
+          // Get the current user after sign-in
+          const { data: { user: currentUser } } = await supabase.auth.getUser();
+          currentUserId = currentUser?.id;
+        } else {
           toast({
             title: "Account creation failed",
             description: "We'll process your order as a guest",
             variant: "destructive",
-          });
-        } else {
-          // Note: We can't immediately get the user ID since email confirmation is required
-          // For now, we'll process as guest order but notify about account creation
-          toast({
-            title: "Account created!",
-            description: "Please check your email to verify your account. Your order will be processed.",
           });
         }
       }
@@ -267,18 +292,7 @@ export default function CheckoutPage() {
       }
 
       // Fallback: Process as guest order (show success but don't save to database)
-      const orderId = `EC${Date.now().toString().slice(-6)}`;
-      
-      clearCart();
-      
-      toast({
-        title: "Order placed successfully! 🎉",
-        description: `Order #${orderId} will be delivered on ${deliveryOptions.find(d => d.value === deliveryDate)?.label}${tempPassword ? ' Account created - check your email!' : ''}`,
-      });
-
-      setTimeout(() => {
-        navigate("/");
-      }, 2000);
+      await processGuestOrder();
       
     } catch (error) {
       console.error('Order placement error:', error);
@@ -432,34 +446,14 @@ export default function CheckoutPage() {
             </div>
 
             {!user && (
-              <div className="space-y-4 pt-4 border-t">
-                <div className="flex items-center space-x-2">
-                  <input
-                    type="checkbox"
-                    id="createAccount"
-                    checked={createAccount}
-                    onChange={(e) => setCreateAccount(e.target.checked)}
-                    className="rounded"
-                  />
-                  <Label htmlFor="createAccount" className="text-sm">
-                    ✓ Create your account too so you don't have to enter your details next time
-                  </Label>
+              <div className="p-3 bg-primary/5 rounded-lg text-sm">
+                <div className="flex items-center gap-2 text-primary font-medium mb-1">
+                  <User className="w-4 h-4" />
+                  Account Creation
                 </div>
-                
-                {createAccount && (
-                  <div>
-                    <Label htmlFor="password">Set Password *</Label>
-                    <Input
-                      id="password"
-                      type="password"
-                      placeholder="Create a password for your account"
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                      className="h-10 rounded-button"
-                      required
-                    />
-                  </div>
-                )}
+                <p className="text-muted-foreground">
+                  ✓ We'll automatically create your account and sign you in so you can track your orders and reorder easily next time!
+                </p>
               </div>
             )}
 
