@@ -14,7 +14,7 @@ import { useToast } from "@/hooks/use-toast";
 export default function CheckoutPage() {
   const navigate = useNavigate();
   const { cartItems, cartCount, clearCart } = useApp();
-  const { user, signUp } = useAuth();
+  const { user, signUp, signIn } = useAuth();
   const { toast } = useToast();
 
   const [customerDetails, setCustomerDetails] = useState({
@@ -347,23 +347,32 @@ export default function CheckoutPage() {
 
       <div className="container-fresh space-y-6 py-6">
         {/* Delivery PIN */}
-        <div className="card-fresh p-4">
+        <div className="card-fresh p-6">
+          <h3 className="font-poppins font-semibold text-lg mb-4 flex items-center gap-2">
+            <MapPin className="w-5 h-5" />
+            Delivery Location
+          </h3>
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <MapPin className="w-5 h-5 text-primary" />
+              <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
+                <MapPin className="w-6 h-6 text-primary" />
+              </div>
               <div>
-                <div className="font-medium">Delivery to {savedPin}</div>
-                <div className="text-sm text-muted-foreground">Kochi</div>
+                <div className="font-medium">PIN Code: {savedPin}</div>
+                <div className="text-sm text-muted-foreground">Kochi, Kerala</div>
               </div>
             </div>
             <Button 
               variant="outline" 
               size="sm"
               onClick={handleChangePIN}
-              className="text-primary"
+              className="text-primary hover:bg-primary/5"
             >
-              Change
+              Change PIN
             </Button>
+          </div>
+          <div className="mt-3 text-xs text-muted-foreground bg-muted/50 p-3 rounded-lg">
+            💡 This PIN code will be saved to your profile for future orders
           </div>
         </div>
 
@@ -446,20 +455,29 @@ export default function CheckoutPage() {
             </div>
 
             {!user && (
-              <div className="p-3 bg-primary/5 rounded-lg text-sm">
-                <div className="flex items-center gap-2 text-primary font-medium mb-1">
-                  <User className="w-4 h-4" />
+              <div className="p-4 bg-gradient-to-r from-primary/5 to-primary/10 rounded-lg border border-primary/20">
+                <div className="flex items-center gap-2 text-primary font-medium mb-2">
+                  <User className="w-5 h-5" />
                   Account Creation
                 </div>
-                <p className="text-muted-foreground">
-                  ✓ We'll automatically create your account and sign you in so you can track your orders and reorder easily next time!
+                <p className="text-muted-foreground text-sm">
+                  ✓ We'll automatically create your account and sign you in<br/>
+                  ✓ All details will be saved to your profile<br/>
+                  ✓ Track orders and reorder easily next time
                 </p>
               </div>
             )}
 
             {user && (
-              <div className="p-3 bg-muted rounded-lg text-sm text-muted-foreground">
-                ✓ Logged in as {user.email}. Your details will be saved automatically.
+              <div className="p-4 bg-muted/50 rounded-lg text-sm">
+                <div className="flex items-center gap-2 text-foreground font-medium mb-1">
+                  <User className="w-4 h-4 text-primary" />
+                  Account Details
+                </div>
+                <p className="text-muted-foreground">
+                  ✓ Logged in as {user.email}<br/>
+                  ✓ Your details will be saved to Profile and Address tabs
+                </p>
               </div>
             )}
           </div>
