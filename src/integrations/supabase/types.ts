@@ -133,7 +133,7 @@ export type Database = {
           full_name: string
           id: string
           landmark: string | null
-          phone: string
+          phone: string | null
           pin_code: string | null
           updated_at: string
           user_id: string
@@ -146,7 +146,7 @@ export type Database = {
           full_name: string
           id?: string
           landmark?: string | null
-          phone: string
+          phone?: string | null
           pin_code?: string | null
           updated_at?: string
           user_id: string
@@ -159,7 +159,7 @@ export type Database = {
           full_name?: string
           id?: string
           landmark?: string | null
-          phone?: string
+          phone?: string | null
           pin_code?: string | null
           updated_at?: string
           user_id?: string
